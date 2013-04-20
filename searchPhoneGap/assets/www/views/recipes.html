@@ -1,0 +1,15 @@
+<div class="hero-unit">
+  <h1>'Recipes'</h1>
+
+  <ul>
+      <li ng-repeat="recipe in recipes">
+        {{recipe.name}}
+        <button ng-click="rid = addRecipe(recipe.code)" ng-init="rid = 0"">On</button>
+        <button ng-click="removeRecipe(rid)">Off</button> rid : {{rid}}
+        <button ng-click="count = count + 1" ng-init="count = 0"></button>
+        <button ng-click="alert()">Alert</button>
+        count : {{count}}
+      </li>
+  </ul>
+
+</div>

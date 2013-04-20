@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Context.Trigger</title>
+
+    <link href="styles/kendo.mobile.all.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="home" data-role="view" data-layout="default">
+        Hello Mobile World!
+        <ul id="listView"></ul>
+    </div>
+
+    <section data-role="layout" data-id="default">
+        <header data-role="header">
+            <div data-role="navbar">Context.Trigger</div>
+        </header>
+        <!--View content will render here-->
+        <footer data-role="footer">
+            <div data-role="tabstrip">
+                <a data-icon="home" href="#home">Home</a>
+                <a data-icon="settings" href="recipes.html">Recipes</a>
+                <a data-icon="about" href="about.html">About</a>
+            </div>
+        </footer>
+    </section>
+
+    <script src="js/kendo/jquery.min.js"></script>
+    <script src="js/kendo/kendo.all.min.js"></script>
+    <script>
+
+//define the DataSource
+    var dataSource = new kendo.data.DataSource({
+        pageSize: 20, //defines page size. Required by the "Endless scrolling"
+        data: [1,2,3,4,5]
+    });
+//initialize the Mobile ListView
+    $("#listView").kendoMobileListView({
+        dataSource: dataSource,
+        template: "#: data #",
+
+        endlessScroll: true,
+
+        scrollTreshold: 30 //treshold in pixels
+    });
+
+      var app = new kendo.mobile.Application(document.body,
+      {
+        transition:'slide'
+      });
+    </script>
+
+</body>
+</html>
