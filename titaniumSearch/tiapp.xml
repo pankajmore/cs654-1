@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <property name="acs-oauth-secret-production" type="string">TVKi1Jc7BUxIjxIM5BjIi97oa03qzUYb</property>
+    <property name="acs-oauth-key-production" type="string">7vXIQxthDRuQkGVKNizQAP8O1NJY5saU</property>
+    <property name="acs-api-key-production" type="string">ocwZpTbIzjCyKWKLAdQJQhVU0GFmmfUK</property>
+    <property name="acs-oauth-secret-development" type="string">c9qQqQ884yS1KD7lNObo93G0ur3sIMvi</property>
+    <property name="acs-oauth-key-development" type="string">OFzI20ma84n7FzIfhxvms6z35vnUAxh5</property>
+    <property name="acs-api-key-development" type="string">zcundmm2CJ8sFMhGTDVc9ERzj6HRCaUU</property>
+    <id>com.cs634</id>
+    <name>titaniumDemo</name>
+    <version>1.0</version>
+    <publisher>satvikc</publisher>
+    <url>http://</url>
+    <description>not specified</description>
+    <copyright>2013 by satvikc</copyright>
+    <icon>appicon.png</icon>
+    <persistent-wifi>false</persistent-wifi>
+    <prerendered-icon>false</prerendered-icon>
+    <statusbar-style>default</statusbar-style>
+    <statusbar-hidden>false</statusbar-hidden>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>false</navbar-hidden>
+    <analytics>true</analytics>
+    <guid>5ae77819-2d52-491d-b4e5-5339ac8b13d0</guid>
+    <property name="ti.ui.defaultunit" type="string">system</property>
+    <iphone>
+        <orientations device="iphone">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+        </orientations>
+        <orientations device="ipad">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+            <orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
+        </orientations>
+    </iphone>
+    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <mobileweb>
+        <precache/>
+        <splash>
+            <enabled>true</enabled>
+            <inline-css-images>true</inline-css-images>
+        </splash>
+        <theme>default</theme>
+    </mobileweb>
+    <modules>
+        <module platform="commonjs">ti.cloud</module>
+    </modules>
+    <deployment-targets>
+        <target device="iphone">false</target>
+        <target device="ipad">false</target>
+        <target device="blackberry">false</target>
+        <target device="android">true</target>
+        <target device="mobileweb">false</target>
+    </deployment-targets>
+    <sdk-version>3.0.2.GA</sdk-version>
+</ti:app>

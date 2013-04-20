@@ -14,8 +14,8 @@
       viewport = $('#viewport'),
 
       // setup the indices and types to search across
-      index = 'foo',
-      type = 'doc',
+      index = 'bulk_test',
+      type = 'document',
       request = ejs.Request({indices: index, types: type}),
 
       // generates the elastic.js query and executes the search
