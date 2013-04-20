@@ -16,12 +16,22 @@
       // setup the indices and types to search across
       index = 'bulk_test',
       type = 'document',
+      pageSize = 10,
+      queryString = '',
+      currentTotal = 0,
       request = ejs.Request({indices: index, types: type}),
 
       // generates the elastic.js query and executes the search
+      // use .from(number).size(number) to achieve paging
       executeSearch = function (qstr) {
-        request.query(ejs.QueryStringQuery(qstr || '*'))
-          .doSearch(gotoResults);
+	  console.log("Search page executed for " + qstr);
+          request.query(ejs.QueryStringQuery(qstr || '*')).size(pageSize)
+              .doSearch(gotoResults);
+      },
+      nextPage = function(qstr,fr) {
+	  console.log("Next page executed for " + qstr + " from  " + fr);
+	  request.query(ejs.QueryStringQuery(qstr || '*')).from(fr).size(pageSize)
+              .doSearch(gotoResults);
       },
 
       // renders the main search page
@@ -30,6 +40,7 @@
           .find('#formSearch')
           .submit(function (e) {
             var txtSearch = $('#txtSearch');
+	    queryString = txtSearch.val();
             executeSearch(txtSearch.val());
             txtSearch.val('');
             return false; // prevent form submission
@@ -38,11 +49,21 @@
 
       // renders the results page
       gotoResults = function (results) {
-        viewport.empty().append(resultsTmpl({results: results}))
-          .find('#goBack')
+	currentTotal += pageSize;
+        var jo = viewport.empty().append(resultsTmpl({results: results}));
+	jo.find('#goBack')
           .click(function () {
+	    console.log("Return to search");
             gotoSearch();
           });
+        jo.find('#goNext')
+          .click(function () {
+	    console.log("Next");
+	    console.log("Query String " + queryString + " Next page start " + currentTotal);
+            nextPage(queryString,currentTotal);
+          });
+        
+ 
       },
 
       // index sample documents
