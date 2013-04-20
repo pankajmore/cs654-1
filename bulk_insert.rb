@@ -1,56 +1,48 @@
 require 'rubygems'
+require 'parallel'
 require 'tire'
 
 # export LANG=en_US.UTF-8 for invalid encoding error
 
 Tire.configure do
-  url "http://172.27.19.55:9200"
+  url "http://172.24.1.166:9200"
 end
 
-Tire.index 'bulk_test' do
+Tire.index 'wiki' do
   delete
   create :mappings => {
     :article => {
       :properties => {
-        :text   => { :type => 'string', :analyzer => { :filter => 'html_strip' } },
+        :title => { :type => 'string' },
+        :text   => { :type => 'string' }
       }
     }
   }
 
-files = Array.new
+  dir = '/home/pankajm/Downloads/wiki_dump/'
 
-  Dir.foreach('/home/pankajm/Dropbox/urls') do |item|
+  files = Array.new
+
+  Dir.foreach(dir) do |item|
     next if item == '.' or item == '..'
-    files.push(item)
+    # do work on real items
+    filename = dir + item
+    files.push(filename)
   end
 
-N = 400
-for i in 1..files.length/N
-  bulk = []
-  begin
-    for j in 1..N
-      filename = files.at(j + (i-1)*N)
-      bulk.push({:text => File.read("/home/pankajm/Dropbox/urls/#{filename}")})
-    end
-    import bulk
-  rescue ArgumentError
-    puts "Error "
-  else
-    puts "Success" + ((i-1)*N).to_s
-  end
+  Parallel.each(files,:in_processes=>10) { |filename|
+    Zlib::GzipReader.open(filename) {|gz|
+      contents = gz.read
+      array = contents.split(/\[{2}/).map{ |el|
+        title, text = el.split(/\]{2}\s/)
+        {:title => title, :text => text}
+      }
+      import array
+      puts filename
+      contents = nil
+      array = nil
+      }
+  }
 
-end
-
-  # Dir.foreach('/home/pankajm/Dropbox/urls') do |item|
-  #   next if item == '.' or item == '..'
-  #   # do work on real items
-  #   begin
-  #     store :text => File.read("/home/pankajm/Dropbox/urls/#{item}")
-  #   rescue ArgumentError
-  #     puts "Error " + item
-  #   else
-  #     puts "Storing " + item
-  #   end
-  # end
 
 end
