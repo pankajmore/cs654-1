@@ -4,7 +4,7 @@
   'use strict';
 
   // setup elastic.js client for jQuery
-  ejs.client = ejs.jQueryClient('http://localhost:9200');
+  ejs.client = ejs.jQueryClient('http://172.31.4.209:9200');
 
   $(function () {
 
@@ -14,7 +14,7 @@
       viewport = $('#viewport'),
 
       // setup the indices and types to search across
-      index = 'bulk_test',
+      index = 'wiki',
       type = 'document',
       pageSize = 10,
       queryString = '',
@@ -36,6 +36,7 @@
 
       // renders the main search page
       gotoSearch = function () {
+	currentTotal = 0;
         viewport.empty().append(searchTmpl({}))
           .find('#formSearch')
           .submit(function (e) {
