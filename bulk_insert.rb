@@ -5,7 +5,7 @@ require 'tire'
 # export LANG=en_US.UTF-8 for invalid encoding error
 
 Tire.configure do
-  url "http://172.24.1.166:9200"
+  url "http://172.31.4.209:9200"
 end
 
 Tire.index 'wiki' do
