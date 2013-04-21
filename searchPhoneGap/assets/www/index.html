@@ -23,6 +23,8 @@
     <script src="common/lib/underscore.min.js"></script>
     <script src="dist/elastic.min.js"></script>
     <script src="dist/elastic-jquery-client.min.js"></script>
+    <script src="dist/bootstrap-transition.js"></script>
+    <script src="dist/bootstrap-modal.js"></script>
       
     <!-- project specific files -->
     <script src="js/app.js"></script>
@@ -55,14 +57,27 @@
                 <thead>
                     <tr>
                         <th>Title</th>
-                        <th>Text</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% _.each(results.hits.hits, function(doc) { %>
                         <tr>
-                            <td><%= $(doc._source.text).filter("title").text() %></td>
+			    <td> <a data-toggle="modal"
+			    href="#<%= doc._id
+			    %>"><%= doc._source.title %></a> </td>
 			    
+			    <div class="modal hide" id="<%= doc._id %>">
+			      <div class="modal-header">
+				<button class="close" data-dismiss="modal">×</button>
+				<h3><%= doc._source.title %></h3>
+			      </div>
+			      <div class="modal-body">
+				<p><%= doc._source.text %></p>
+			      </div>
+			      <div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Close</a>
+			      </div>
+			    </div>
                         </tr>
                     <% }); %>
                 </tbody>
