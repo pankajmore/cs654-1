@@ -36,6 +36,7 @@
 
       // renders the main search page
       gotoSearch = function () {
+	currentTotal = 0;
         viewport.empty().append(searchTmpl({}))
           .find('#formSearch')
           .submit(function (e) {
